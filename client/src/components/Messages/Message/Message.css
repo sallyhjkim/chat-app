@@ -11,7 +11,8 @@
     width: 100%;
     letter-spacing: 0;
     float: left;
-    font-size: 1.1em;
+    font-size: 12px;
+    /* font-size: 1.1em; */
     word-wrap: break-word;
 }
 
@@ -22,7 +23,7 @@
 .messageContainer {
     display: flex;
     justify-content: flex-end;
-    padding: 0 5%;
+    padding: 0 2%;
     margin-top: 3px;
 }
 
@@ -59,9 +60,28 @@
 }
 
 .backgroundBlue {
-    background:var(--main-theme-color);
+    background: var(--main-theme-color);
 }
 
 .backgroundLight {
     background: #f3f3f3;
+}
+
+.userThumb {
+    display: inline-flex;
+    margin-right: 11px;
+}
+
+.userThumb span {
+    display: inline-flex;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 100px;
+    margin: auto;
+    background: #000;
+    line-height: 30px;
+    font-size: 0.8em;
+    color: #fff;
 }

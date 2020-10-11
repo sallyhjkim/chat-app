@@ -28,7 +28,7 @@ io.on("connect", (socket) => {
         });
         socket.broadcast.to(user.room).emit("message", {
             user: "admin",
-            text: `${user.name} has joined!`,
+            text: `${user.name} joined the meeting.`,
         });
 
         io.to(user.room).emit("roomData", {
@@ -52,7 +52,7 @@ io.on("connect", (socket) => {
         if (user) {
             io.to(user.room).emit("message", {
                 user: "admin",
-                text: `${user.name} has left.`,
+                text: `${user.name} has left the meeting.`,
             });
             io.to(user.room).emit("roomData", {
                 room: user.room,

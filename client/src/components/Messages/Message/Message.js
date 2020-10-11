@@ -1,37 +1,54 @@
-import React from 'react';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import './Message.css';
+import "./Message.css";
 
-import ReactEmoji from 'react-emoji';
+import ReactEmoji from "react-emoji";
 
 const Message = ({ message: { text, user }, name }) => {
-  let isSentByCurrentUser = false;
+    let isSentByCurrentUser = false;
 
-  const trimmedName = name.trim().toLowerCase();
+    const { color } = useSelector((state) => ({
+        color: state.user.get("userColor"),
+    }));
 
-  if(user === trimmedName) {
-    isSentByCurrentUser = true;
-  }
+    const trimmedName = name.trim().toLowerCase();
 
-  return (
-    isSentByCurrentUser
-      ? (
+    if (user === trimmedName) {
+        isSentByCurrentUser = true;
+    }
+    const populateUserIcon = (username) => {
+        return username.toUpperCase().slice(0, 2);
+    };
+
+    return isSentByCurrentUser ? (
         <div className="messageContainer justifyEnd">
-          <p className="sentText pr-10">{trimmedName}</p>
-          <div className="messageBox backgroundBlue">
-            <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
-          </div>
-        </div>
-        )
-        : (
-          <div className="messageContainer justifyStart">
-            <div className="messageBox backgroundLight">
-              <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+            <div className="userThumb"></div>
+            <div className="messageBox backgroundBlue">
+                <p className="messageText colorWhite">
+                    {ReactEmoji.emojify(text)}
+                </p>
             </div>
-            <p className="sentText pl-10 ">{user}</p>
-          </div>
-        )
-  );
-}
+        </div>
+    ) : (
+        <div className="messageContainer justifyStart">
+            <div className="userThumb">
+                <span
+                    style={{
+                        border: `1px solid ${color}`,
+                        background: `${color}`,
+                    }}
+                >
+                    {populateUserIcon(user)}
+                </span>
+            </div>
+            <div className="messageBox backgroundLight">
+                <p className="messageText colorDark">
+                    {ReactEmoji.emojify(text)}
+                </p>
+            </div>
+        </div>
+    );
+};
 
 export default Message;

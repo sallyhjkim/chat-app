@@ -1,3 +1,4 @@
 export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_ICON_COLOR = "UPDATE_ICON_COLOR";
 export const UPDATE_MESSAGES = "UPDATE_MESSAGES";
 export const UPDATE_ROOM = "UPDATE_ROOM";
