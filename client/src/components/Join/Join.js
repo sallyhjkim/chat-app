@@ -1,11 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { UPDATE_USER, UPDATE_ROOM } from "../../defs/actionTypes";
 
 import "./Join.css";
 
 export default function SignIn() {
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [room, setRoom] = useState("");
+
+    const handleClick = (e) => {
+        dispatch({ type: UPDATE_ROOM, payload: { room: room } });
+        dispatch({ type: UPDATE_USER, payload: { name: name } });
+
+        if (!name || !room) {
+            e.preventDefault();
+        }
+    };
 
     return (
         <div className="joinOuterContainer">
@@ -27,12 +40,7 @@ export default function SignIn() {
                         onChange={(event) => setRoom(event.target.value)}
                     />
                 </div>
-                <Link
-                    onClick={(e) =>
-                        !name || !room ? e.preventDefault() : null
-                    }
-                    to={`/chat?name=${name}&room=${room}`}
-                >
+                <Link onClick={handleClick} to={"/chat"}>
                     <button className={"button mt-20"} type="submit">
                         Sign In
                     </button>

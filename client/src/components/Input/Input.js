@@ -16,8 +16,8 @@ const Input = ({ setMessage, sendMessage, message }) => (
             }
         />
         {/* <button className="sendButton" onClick={e => sendMessage(e)}>Send</button> */}
-        <label className="sendButton" for="sendbtn">
-            <input type="button" id="sendbtn" onClick={(e) => sendMessage(e)} />
+        <label className="sendButton">
+            <input type="button" onClick={(e) => sendMessage(e)} />
             <span className="sendButtonSpan">
                 <img
                     className="sendButtonImg"
