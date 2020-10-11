@@ -1,0 +1,8 @@
+.justifyCenter {
+    justify-content: center !important;
+}
+
+.infoMessageText {
+    font-size: small;
+    opacity: 0.4;
+}

@@ -3,7 +3,7 @@ import queryString from "query-string";
 import io from "socket.io-client";
 
 import TextContainer from "../TextContainer/TextContainer";
-import Messages from "../Messages/Messages";
+import ChatBox from "../ChatBox/ChatBox";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 
@@ -47,7 +47,6 @@ const Chat = ({ location }) => {
 
     const sendMessage = (event) => {
         event.preventDefault();
-
         if (message) {
             socket.emit("sendMessage", message, () => setMessage(""));
         }
@@ -57,7 +56,7 @@ const Chat = ({ location }) => {
         <div className="outerContainer">
             <div className="container">
                 <InfoBar room={room} />
-                <Messages messages={messages} name={name} />
+                <ChatBox messages={messages} name={name} />
                 <Input
                     message={message}
                     setMessage={setMessage}
