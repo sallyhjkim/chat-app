@@ -21,7 +21,7 @@ select:focus {
     color: #fff !important;
     text-transform: uppercase;
     text-decoration: none;
-    background: #2979ff;
+    background: var(--main-theme-color);
     margin: 16px;
     display: inline-flex;
     border-radius: 100px;

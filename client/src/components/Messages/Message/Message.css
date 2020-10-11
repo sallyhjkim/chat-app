@@ -59,7 +59,7 @@
 }
 
 .backgroundBlue {
-    background: #2979ff;
+    background:var(--main-theme-color);
 }
 
 .backgroundLight {
