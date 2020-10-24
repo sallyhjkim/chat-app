@@ -7,14 +7,14 @@ import Message from "./Message/Message";
 
 import "./Messages.css";
 
-const Messages = ({ messages, name }) => (
+const Messages = ({ messages, user }) => (
     <ScrollToBottom className="messages">
         {messages.map((message, i) => (
             <div key={i}>
-                {message.user === "admin" ? (
+                {message.name === "admin" ? (
                     <InfoMessage message={message} />
                 ) : (
-                    <Message message={message} name={name} />
+                    <Message message={message} user={user} />
                 )}
             </div>
         ))}

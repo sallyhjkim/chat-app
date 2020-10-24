@@ -1,5 +1,5 @@
 import { List, Map } from "immutable";
-import { POPULATE_MESSAGES, UPDATE_MESSAGES } from "../defs/actionTypes";
+import { UPDATE_MESSAGES } from "../defs/actionTypes";
 
 const initialState = Map({
     messages: List(),

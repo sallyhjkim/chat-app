@@ -1,17 +1,14 @@
 import { Map } from "immutable";
-import { UPDATE_USER, UPDATE_ICON_COLOR } from "../defs/actionTypes";
+import { UPDATE_USER } from "../defs/actionTypes";
 
 const initialState = Map({
-    username: "",
-    userColor: "",
+    user: "",
 });
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_USER:
-            return state.set("username", action.payload.name);
-        case UPDATE_ICON_COLOR:
-            return state.set("userColor", action.payload.color);
+            return state.set("user", action.payload.user);
 
         default:
             return state;

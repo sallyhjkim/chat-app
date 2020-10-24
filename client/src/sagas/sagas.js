@@ -1,10 +1,5 @@
 import { put, takeEvery, all } from "redux-saga/effects";
-import {
-    UPDATE_USER,
-    UPDATE_ICON_COLOR,
-    UPDATE_ROOM,
-    UPDATE_MESSAGES,
-} from "../defs/actionTypes";
+import { UPDATE_USER, UPDATE_ROOM, UPDATE_MESSAGES } from "../defs/actionTypes";
 
 function* asyncHandler(actionType, payload) {
     yield put({ type: actionType, payload: payload });
@@ -19,7 +14,6 @@ function* sagaAsyncCallGenerator(actionType) {
 export default function* rootSaga() {
     yield all([
         sagaAsyncCallGenerator(UPDATE_USER),
-        sagaAsyncCallGenerator(UPDATE_ICON_COLOR),
         sagaAsyncCallGenerator(UPDATE_ROOM),
         sagaAsyncCallGenerator(UPDATE_MESSAGES),
     ]);

@@ -14,14 +14,15 @@ let socket;
 const Chat = ({ location }) => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const { username, room } = useSelector((state) => ({
+    const { user, room } = useSelector((state) => ({
         room: state.room.get("room"),
-        username: state.user.get("username"),
+        user: state.user.get("user"),
     }));
+
     useEffect(() => {
         socket = io(ENDPOINT);
-        if (username) {
-            socket.emit("join", { name: username, room }, (error) => {
+        if (user.name) {
+            socket.emit("join", { user: user, room }, (error) => {
                 if (error) {
                     alert(error);
                 }
@@ -48,7 +49,7 @@ const Chat = ({ location }) => {
         <div className="outerContainer">
             <div className="container">
                 <InfoBar room={room} />
-                <ChatBox messages={messages} name={username} />
+                <ChatBox messages={messages} user={user} />
                 <Input
                     message={message}
                     setMessage={setMessage}

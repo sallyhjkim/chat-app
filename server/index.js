@@ -15,33 +15,37 @@ const io = socketio(server);
 app.use(router);
 
 io.on("connect", (socket) => {
-    socket.on("join", ({ name, room }, callback) => {
-        const { error, user } = addUser({ id: socket.id, name, room });
+    socket.on("join", ({ user, room }, callback) => {
+        const { error, userInfo } = addUser({ id: socket.id, user, room });
 
         if (error) return callback(error);
 
-        socket.join(user.room);
+        socket.join(userInfo.room);
 
         socket.emit("message", {
-            user: "admin",
-            text: `${user.name}, welcome to room ${user.room}.`,
+            name: "admin",
+            text: `${userInfo.user.name}, welcome to room ${userInfo.room}.`,
         });
         socket.broadcast.to(user.room).emit("message", {
-            user: "admin",
-            text: `${user.name} joined the meeting.`,
+            name: "admin",
+            text: `${userInfo.user.name} joined the meeting.`,
         });
 
-        io.to(user.room).emit("roomData", {
-            room: user.room,
-            users: getUsersInRoom(user.room),
+        io.to(userInfo.room).emit("roomData", {
+            room: userInfo.room,
+            users: getUsersInRoom(userInfo.room),
         });
 
         callback();
     });
 
     socket.on("sendMessage", (message, callback) => {
-        const user = getUser(socket.id);
-        io.to(user.room).emit("message", { user: user.name, text: message });
+        const userInfo = getUser(socket.id);
+        io.to(userInfo.room).emit("message", {
+            name: userInfo.user.name,
+            text: message,
+            icon: userInfo.user.color,
+        });
 
         callback();
     });
@@ -51,7 +55,7 @@ io.on("connect", (socket) => {
 
         if (user) {
             io.to(user.room).emit("message", {
-                user: "admin",
+                name: "admin",
                 text: `${user.name} has left the meeting.`,
             });
             io.to(user.room).emit("roomData", {

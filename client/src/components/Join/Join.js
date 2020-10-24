@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import {
-    UPDATE_USER,
-    UPDATE_ROOM,
-    UPDATE_ICON_COLOR,
-} from "../../defs/actionTypes";
-
+import { UPDATE_USER, UPDATE_ROOM } from "../../defs/actionTypes";
 import { COLOR_LIST } from "../../defs/defs";
 
 import "./Join.css";
@@ -17,18 +12,19 @@ export default function SignIn() {
     const [name, setName] = useState("");
     const [room, setRoom] = useState("");
 
+    const handleClick = (e) => {
+        if (!name || !room) {
+            e.preventDefault();
+            return;
+        }
+        const user = { name: name, color: pickColor() };
+        dispatch({ type: UPDATE_ROOM, payload: { room: room } });
+        dispatch({ type: UPDATE_USER, payload: { user: user } });
+    };
+
     const pickColor = () => {
         const colorIndex = Math.floor(Math.random() * 30) + 1;
         return COLOR_LIST[colorIndex];
-    };
-    const handleClick = (e) => {
-        dispatch({ type: UPDATE_ROOM, payload: { room: room } });
-        dispatch({ type: UPDATE_USER, payload: { name: name } });
-        dispatch({ type: UPDATE_ICON_COLOR, payload: { color: pickColor() } });
-
-        if (!name || !room) {
-            e.preventDefault();
-        }
     };
 
     return (

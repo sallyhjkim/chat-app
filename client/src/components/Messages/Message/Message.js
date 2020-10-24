@@ -1,24 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import ReactEmoji from "react-emoji";
 
 import "./Message.css";
 
-import ReactEmoji from "react-emoji";
-
-const Message = ({ message: { text, user }, name }) => {
+const Message = ({ message: { text, name, icon }, user }) => {
     let isSentByCurrentUser = false;
-
-    const { color } = useSelector((state) => ({
-        color: state.user.get("userColor"),
-    }));
-
     const trimmedName = name.trim().toLowerCase();
 
-    if (user === trimmedName) {
+    if (user.name === trimmedName) {
         isSentByCurrentUser = true;
     }
-    const populateUserIcon = (username) => {
-        return username.toUpperCase().slice(0, 2);
+
+    const populateUserIcon = () => {
+        return name.toUpperCase().slice(0, 2);
     };
 
     return isSentByCurrentUser ? (
@@ -35,11 +29,11 @@ const Message = ({ message: { text, user }, name }) => {
             <div className="userThumb">
                 <span
                     style={{
-                        border: `1px solid ${color}`,
-                        background: `${color}`,
+                        border: `1px solid ${icon}`,
+                        background: `${icon}`,
                     }}
                 >
-                    {populateUserIcon(user)}
+                    {populateUserIcon()}
                 </span>
             </div>
             <div className="messageBox backgroundLight">
