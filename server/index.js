@@ -6,13 +6,42 @@ const cors = require("cors");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
 const router = require("./router");
+const pool = require("./db");
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-
 // app.use(cors());
 app.use(router);
+app.use(express.json());
+app.use(cors());
+
+app.post("/signIn", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const newUser = await pool.query(
+            "INSERT INTO users(user_name, password) VALUES($1, $2)",
+            [username, password]
+        );
+        res.json({ msgCode: "SUCCESS" });
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+app.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const loginedUser = await pool.query(
+            "SELECT * FROM users WHERE user_name=$1 and password=$2",
+            [username, password]
+        );
+        const status = loginedUser.rowCount ? "SUCCESS" : "FAILED";
+        res.json({ msgCode: status });
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 
 io.on("connect", (socket) => {
     socket.on("join", ({ user, room }, callback) => {
