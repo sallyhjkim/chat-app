@@ -11,7 +11,7 @@ import "./Chat.css";
 
 let socket;
 
-const Chat = ({ location }) => {
+const Chat = () => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const { user, room } = useSelector((state) => ({
@@ -30,7 +30,7 @@ const Chat = ({ location }) => {
         } else {
             window.location.assign(window.location.origin);
         }
-    }, [ENDPOINT, location.search]);
+    }, []);
 
     useEffect(() => {
         socket.on("message", (message) => {

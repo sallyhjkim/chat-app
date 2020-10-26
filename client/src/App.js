@@ -8,6 +8,7 @@ import createSagaMiddleware from "redux-saga";
 import reducer from "./reducers/rootReducer";
 import rootSaga from "./sagas/sagas";
 
+import Login from "./components/Login/Login";
 import Join from "./components/Join/Join";
 import Chat from "./components/Chat/Chat";
 
@@ -18,7 +19,8 @@ sagaMiddleware.run(rootSaga);
 const App = () => (
     <Provider store={store}>
         <Router>
-            <Route path="/" exact component={Join} />
+            <Route path="/" exact component={Login} />
+            <Route path="/Join" exact component={Join} />
             <Route path="/chat" exact component={Chat} />
         </Router>
     </Provider>

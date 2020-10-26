@@ -1,0 +1,28 @@
+.loginOuterContainer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    align-items: center;
+    background-color: #1a1a1d;
+}
+
+.loginInnerContainer {
+    width: 20%;
+}
+
+.loginInput {
+    border-radius: 0;
+    padding: 15px 20px;
+    width: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .loginOuterContainer {
+        height: 100%;
+    }
+
+    .loginInnerContainer {
+        width: 90%;
+    }
+}
